@@ -1,0 +1,30 @@
+<style>
+  .wrapper {
+    width: 300px;
+    margin: auto;
+    margin-top: 80px;
+    padding: 30px 10px;
+    background-color: #EAEAEA;
+    border: 2px solid black;
+    border-radius: 4px;
+    box-shadow: 15px 15px 50px grey;
+  }
+  form {
+    padding-top: 50px;
+    width : 200px;
+    margin: auto;
+  }
+</style>
+<div class="wrapper text-center">
+  <div id="grid_of_letters text-center">
+    <p>Your letters</p>
+    <%@letters.each do |letter| %>
+      <%= letter %>
+    <%end%>
+  </div>
+  <form action="/score">
+    <label for="question">Give it a try</label>
+    <input class="form-control" type="text" id="question" name="attempt" ><br>
+    <input class="btn btn-primary" type="submit" value="Go on!">
+  </form>
+</div>
