@@ -11,12 +11,12 @@
   }
 </style>
 <div class="wrapper">
-  <p>Your attempt is: <%= @attempt%></p>
-  <p>Time to answer: <%= @result[:time]%></p>
+  <p class = "text-center"><strong>Your attempt is: <%= @attempt%></strong></p>
+  <p>Time to answer: <%= @result[:time].round%> secondes</p>
   <p>Translation in french: <%= @result[:translation]%> </p>
-  <p>Your score: <%= @result[:score]%></p>
-  <p><%= @result[:message]%></p>
-  <%= link_to "play again", "/game"%>
+  <p>Your score: <%= @result[:score].round %> point</p>
+  <p class = "text-center"><strong><%= @result[:message]%></strong></p><br>
+  <p class = "text-center"><%= link_to "play again", "/game", class: "btn btn-primary"%></p>
 
 
 </div>

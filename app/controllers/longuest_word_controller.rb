@@ -9,7 +9,7 @@ class LonguestWordController < ApplicationController
 
   def score
     @letters = params[:grid].chars
-    @start_time = Time.new(params[:start_time])
+    @start_time = Time.parse(params[:start_time].gsub("_"," "))
     @end_time = Time.now
     @attempt = params[:attempt]
     @result = run_game(@attempt, @letters, @start_time, @end_time)
