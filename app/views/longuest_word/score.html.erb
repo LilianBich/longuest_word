@@ -1,2 +1,22 @@
-<h1>LonguestWord#score</h1>
-<p>Find me in app/views/longuest_word/score.html.erb</p>
+<style>
+  .wrapper {
+    width: 300px;
+    margin: auto;
+    margin-top: 80px;
+    padding: 30px 10px;
+    background-color: #EAEAEA;
+    border: 2px solid black;
+    border-radius: 4px;
+    box-shadow: 15px 15px 50px grey;
+  }
+</style>
+<div class="wrapper">
+  <p>Your attempt is: <%= @attempt%></p>
+  <p>Time to answer: <%= @result[:time]%></p>
+  <p>Translation in french: <%= @result[:translation]%> </p>
+  <p>Your score: <%= @result[:score]%></p>
+  <p><%= @result[:message]%></p>
+  <%= link_to "play again", "/game"%>
+
+
+</div>

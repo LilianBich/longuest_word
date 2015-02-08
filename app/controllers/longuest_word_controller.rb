@@ -1,3 +1,6 @@
+require 'open-uri'
+require 'json'
+
 class LonguestWordController < ApplicationController
   def game
     @letters = generate_grid(8)
@@ -5,14 +8,14 @@ class LonguestWordController < ApplicationController
   end
 
   def score
+    @letters = params[:grid].chars
+    @start_time = Time.new(params[:start_time])
     @end_time = Time.now
-    @result = run_game(params[:attempt], @letters, @start_time, @end_time)
+    @attempt = params[:attempt]
+    @result = run_game(@attempt, @letters, @start_time, @end_time)
   end
 end
 
-
-require 'open-uri'
-require 'json'
 
 def generate_grid(grid_size)
   # TODO: generate random grid of letters
@@ -26,21 +29,21 @@ def run_game(attempt, grid, start_time, end_time)
   result = {}
   time_to_answer = end_time - start_time
   result[:time] = time_to_answer
-  translation = translate(attempt)
+  translation = get_translation(attempt)
   result[:translation] = translation
   english_word = !translation.nil?
-  result[:score] = score(attempt, time_to_answer, english_word, grid)
+  result[:score] = get_score(attempt, time_to_answer, english_word, grid)
   result[:message] = message(attempt, grid, english_word)
   # dessous serie de test pour debugage
   # p "le temps de reponse est #{time_to_answer}"
   # p "la traduction est #{translation}"
   # p "est-ce un mot anglais ? : #{english_word}"
-  # p "le resultat est : #{result[:score]}"
+  # p "le resultat est : #{result[:get_score]}"
   # p "le message est #{result[:message]}"
   return result
 end
 
-def translate(word_in_english)
+def get_translation(word_in_english)
   # Prend un mot en anglais et retourne un string avec la definition en francais
   # recuperer le Jason Serialiser a partir du mot a traduire puis le tranformer
   # en hash  !!!! Pas de test sur le mot
@@ -58,7 +61,7 @@ def translate(word_in_english)
   end
 end
 
-def score(word, time_to_answer, english_word, grid)
+def get_score(word, time_to_answer, english_word, grid)
   # retourne un int avec le score en fonction du temps de reponse et de la
   # longueur du mot
   if word.length * 11 - time_to_answer > 0 && english_word && in_the_grid?(word, grid)

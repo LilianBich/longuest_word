@@ -21,10 +21,13 @@
     <%@letters.each do |letter| %>
       <%= letter %>
     <%end%>
+    <%=@start_time%>
   </div>
   <form action="/score">
     <label for="question">Give it a try</label>
     <input class="form-control" type="text" id="question" name="attempt" ><br>
     <input class="btn btn-primary" type="submit" value="Go on!">
+    <input class="btn btn-primary" type="hidden" value=<%=@letters.join("")%> name="grid">
+    <input class="btn btn-primary" type="hidden" value=<%=@start_time%> name="start_time">
   </form>
 </div>
